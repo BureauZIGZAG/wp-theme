@@ -6,7 +6,7 @@ final class Theme
 {
     private static $instance;
     
-    public function get(): Theme
+    public static function get(): Theme
     {
         if (self::$instance === null) {
             self::$instance = new self();
