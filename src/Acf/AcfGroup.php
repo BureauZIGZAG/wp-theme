@@ -3,7 +3,7 @@
 namespace Freekattema\Wp\Acf;
 
 use Freekattema\Wp\Acf\FieldTypes\AcfFieldType;
-use Freekattema\Wp\Acf\Traits\AddAction;
+use Freekattema\Wp\Shared\Traits\AddAction;
 
 class AcfGroup {
     use AddAction;

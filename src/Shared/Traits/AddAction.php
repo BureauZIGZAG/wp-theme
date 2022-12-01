@@ -1,6 +1,6 @@
 <?php
 
-namespace Freekattema\Wp\Acf\Traits;
+namespace Freekattema\Wp\Shared\Traits;
 
 trait AddAction
 {
