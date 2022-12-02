@@ -12,7 +12,9 @@ final class DashboardWidget {
     private $callback;
 
     /** @var callable[] */
-    private $conditions = [];
+    private array $conditions = [];
+    private string $context = 'normal';
+    private string $_priority = 'core';
 
     private function get_slug(): string {
         return 'zigzag-engine-dashboard-widget_' . sanitize_title($this->title);
@@ -29,11 +31,64 @@ final class DashboardWidget {
             return;
         }
 
+        if(!$this->checkConditions()) {
+            return;
+        }
+
         wp_add_dashboard_widget(
             $this->get_slug(),
             $this->title,
-            $this->callback
+            $this->callback,
+            null,
+            null,
+            $this->context,
+            $this->_priority,
+
         );
+    }
+
+    public function column(int $column = 1): DashboardWidget
+    {
+        switch ($column) {
+            case 1:
+                $column = 'normal';
+                break;
+            case 2:
+                $column = 'side';
+                break;
+            case 3:
+                $column = 'column3';
+                break;
+            case 4:
+                $column = 'column4';
+                break;
+            default:
+                $column = 'normal';
+        }
+        $this->context = $column;
+        return $this;
+    }
+
+    public function priority(int $priority = 1): DashboardWidget
+    {
+        switch ($priority) {
+            case 1:
+                $priority = 'high';
+                break;
+            case 2:
+                $priority = 'core';
+                break;
+            case 3:
+                $priority = 'default';
+                break;
+            case 4:
+                $priority = 'low';
+                break;
+            default:
+                $priority = 'core';
+        }
+        $this->_priority = $priority;
+        return $this;
     }
 
     private function checkConditions(): bool {
@@ -54,6 +109,18 @@ final class DashboardWidget {
     public function set_callback(callable $callback): DashboardWidget
     {
         $this->callback = $callback;
+        return $this;
+    }
+
+    public function set_template(string $path, array $data = []): DashboardWidget
+    {
+        if(!file_exists($path)) {
+            return $this;
+        }
+
+        $this->callback = function () use ($path, $data) {
+            include $path;
+        };
         return $this;
     }
 
