@@ -169,4 +169,35 @@ final class Theme
 
         return $this;
     }
+
+    public static function init($config = []) {
+        $default = [
+            'hide_admin_posts' => true,
+            'hide_admin_comments' => true,
+            'hide_admin_tools' => true,
+            'remove_default_wordpress_styling' => true,
+            'remove_wordpress_jquery' => true,
+            'hide_must_use_plugins' => true,
+            'hide_admin_dashboard' => true,
+            'hide_admin_bar' => true,
+            'admin_bar_cleanup' => true,
+            'hide_admin_dashboard_widgets' => true,
+            'register_nav_menus' => [],
+        ];
+
+        $config = array_merge($default, $config);
+        $instance = self::get();
+
+        $config['register_nav_menus'] && $instance->registerNavMenus($config['register_nav_menus']);
+        $config['hide_admin_posts'] && $instance->HideAdminPosts();
+        $config['hide_admin_comments'] && $instance->HideAdminComments();
+        $config['hide_admin_tools'] && $instance->HideAdminTools();
+        $config['remove_default_wordpress_styling'] && $instance->removeDefaultWordpressStyling();
+        $config['remove_wordpress_jquery'] && $instance->removeWordpressJquery();
+        $config['hide_must_use_plugins'] && $instance->hideMustUsePlugins();
+        $config['hide_admin_dashboard'] && $instance->hideAdminDashboard();
+        $config['hide_admin_bar'] && $instance->hideAdminBar();
+        $config['admin_bar_cleanup'] && $instance->adminBarCleanup();
+        $config['hide_admin_dashboard_widgets'] && $instance->hideAdminDashboardWidgets();
+    }
 }
