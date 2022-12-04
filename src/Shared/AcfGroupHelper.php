@@ -4,8 +4,7 @@ namespace Freekattema\Wp\Shared;
 
 class AcfGroupHelper
 {
-    /** @var array  */
-    private $data = [];
+    private array $data = [];
 
     private function __construct(array $data)
     {

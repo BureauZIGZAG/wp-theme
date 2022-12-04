@@ -3,12 +3,9 @@
 namespace Freekattema\Wp\Admin\AdminPage;
 
 final class AdminPageRoute {
-    /** @var bool */
-    private $rendered = false;
-    /** @var bool */
-    public $default = false;
-    /** @var string */
-    public $title;
+    private bool $rendered = false;
+    public bool $default = false;
+    public string $title;
 
     /** @var Callable|string */
     private $template;

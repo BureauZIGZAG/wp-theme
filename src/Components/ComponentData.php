@@ -3,10 +3,8 @@
 namespace Freekattema\Wp\Components;
 
 class ComponentData {
-    /** @var ComponentData */
-    private static $active_instance = null;
-    /** @var array */
-    private $data = [];
+    private static ?ComponentData $active_instance = null;
+    private array $data = [];
 
     public function __construct(array $data) {
         $this->data = $data;

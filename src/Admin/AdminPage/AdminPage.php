@@ -4,18 +4,13 @@ namespace Freekattema\Wp\Admin\AdminPage;
 
 class AdminPage {
     /** @var AdminPage[] */
-    private static $instances = [];
+    private static array $instances = [];
 
-    /** @var string  */
-    private $title;
-    /** @var string  */
-    private $capability = 'manage_options';
-    /** @var string  */
-    private $icon = 'dashicons-admin-generic';
-    /** @var int  */
-    private $position = 100;
-    /** @var bool  */
-    private $is_options_page = false;
+    private string $title;
+    private string $capability = 'manage_options';
+    private string $icon = 'dashicons-admin-generic';
+    private int $position = 100;
+    private bool $is_options_page = false;
 
     private ?AdminPage $parent = null;
 

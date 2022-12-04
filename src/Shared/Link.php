@@ -3,12 +3,9 @@
 namespace Freekattema\Wp\Shared;
 
 class Link {
-    /** @var string  */
-    public $url = '';
-    /** @var string  */
-    public $target = '';
-    /** @var string  */
-    public $title = '';
+    public string $url = '';
+    public string $target = '';
+    public string $title = '';
 
     public function __construct($url, $target, $title)
     {

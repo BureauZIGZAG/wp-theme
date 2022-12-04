@@ -4,10 +4,8 @@ namespace Freekattema\Wp\Shared;
 
 class Image
 {
-    /** @var string  */
-    public $url;
-    /** @var string  */
-    public $alt;
+    public string $url;
+    public string $alt;
 
     public function __construct($url, $alt)
     {

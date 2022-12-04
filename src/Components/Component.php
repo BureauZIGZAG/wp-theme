@@ -3,11 +3,9 @@
 namespace Freekattema\Wp\Components;
 
 abstract class Component {
-    /** @var ComponentData  */
-    protected $props;
+    protected ComponentData $props;
 
-    /** @var string  */
-    private $template;
+    private string $template;
 
     protected function __construct(array $props = []) {
         $this->props = new ComponentData($props);
@@ -16,7 +14,7 @@ abstract class Component {
         $this->on_init();
     }
 
-    final public static function get(array $props = []) {
+    final public static function get(array $props = []): self {
         $component = new static($props);
         ComponentAssetsLoader::attach(get_class($component));
         return $component;
