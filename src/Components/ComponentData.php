@@ -10,6 +10,16 @@ class ComponentData {
         $this->data = $data;
     }
 
+	public function checkKeys(array $keys): bool {
+		foreach($keys as $key) {
+			if(!$this->has($key)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
     public function get(string $key, $default = null) {
         return $this->data[$key] ?? $default;
     }
