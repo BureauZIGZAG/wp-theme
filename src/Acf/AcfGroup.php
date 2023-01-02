@@ -58,7 +58,6 @@ class AcfGroup {
 			'instruction_placement' => $this->instruction_placement,
 			'hide_on_screen' => $this->hide_on_screen,
 		];
-		echo "<script>console.log(".json_encode($content).");</script>";
 
 		acf_add_local_field_group($content);
 	}
