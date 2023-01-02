@@ -46,7 +46,7 @@ class AcfGroup {
 	}
 
 	private function register() {
-		acf_add_local_field_group([
+		$content = [
 			'key' => $this->get_key(),
 			'title' => $this->title,
 			'fields' => $this->get_fields(),
@@ -57,7 +57,10 @@ class AcfGroup {
 			'label_placement' => $this->label_placement,
 			'instruction_placement' => $this->instruction_placement,
 			'hide_on_screen' => $this->hide_on_screen,
-		]);
+		];
+		echo "<script>console.log(".json_encode($content).");</script>";
+
+		acf_add_local_field_group($content);
 	}
 
 	private function get_key(): string
@@ -105,13 +108,6 @@ class AcfGroup {
 			$location = [[$location]];
 		}
 
-		$location = array_map(function($item) {
-			if(!is_array($item)) {
-				return [$item];
-			}
-			return $item;
-		}, $location);
-
 		return new static(self::generate_key($title), $title, $fields, $location);
 	}
 
@@ -128,7 +124,7 @@ class AcfGroup {
 	public function add_location(?AcfLocation $location): self
 	{
 		if($location !== null) {
-			$this->location[] = [$location];
+			$this->location[] = [[$location]];
 		}
 		return $this;
 	}

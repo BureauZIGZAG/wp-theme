@@ -8,10 +8,6 @@ class AcfPostObject extends AcfFieldType {
 	use HasOptions;
 	function get_additional(): array {
 		return $this->merge_with_options([
-			'post_type' => ['post'],
-			'taxonomy' => [],
-			'allow_null' => 0,
-			'multiple' => 0,
 			'return_format' => 'object',
 		]);
 	}
