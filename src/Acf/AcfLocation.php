@@ -16,7 +16,7 @@ final class AcfLocation {
         $this->value = $value;
     }
 
-    private static function create(string $param, string $operator, string $value): AcfLocation
+    public static function create(string $param, string $operator, string $value): AcfLocation
     {
         return new AcfLocation($param, $operator, $value);
     }
