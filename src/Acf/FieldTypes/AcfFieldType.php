@@ -73,9 +73,9 @@ abstract class AcfFieldType {
 		return $this;
 	}
 
-	abstract function get_additional(): array;
+	abstract protected function get_additional(): array;
 
-	abstract function get_type(): string;
+	abstract protected function get_type(): string;
 
 	public function get_label(): string {
 		return $this->label;
