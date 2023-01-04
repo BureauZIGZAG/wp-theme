@@ -21,7 +21,7 @@ abstract class AcfFieldType {
 		$this->name  = $name;
 	}
 
-	public static function create( string $label, string $name ): AcfFieldType {
+	public static function create( string $label, string $name ) {
 		return new static( $label, strtolower( $name ) );
 	}
 
