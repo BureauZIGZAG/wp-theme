@@ -16,6 +16,10 @@ class AcfTaxonomyReference extends AcfFieldType {
 		] );
 	}
 
+	public function taxonomy( string $taxonomy ): AcfTaxonomyReference {
+		return $this->set_option( 'taxonomy', $taxonomy );
+	}
+
 	public function return_format( ReturnFormatIdOrObject $return_format ): AcfTaxonomyReference {
 		return $this->set_option( 'return_format', $return_format->get() );
 	}
