@@ -41,7 +41,7 @@ class PostType {
 		return $this->plural_name;
 	}
 
-	public function create_post( string $title, string $content = '', string $status = 'publish' ): int {
+	public function create_post( \string $title, \string $content = '', \string $status = 'publish' ): int {
 		$post_id = wp_insert_post( [
 			'post_title'   => $title,
 			'post_content' => $content,
