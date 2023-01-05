@@ -7,7 +7,7 @@ class PostType {
 	private string $singular_name;
 	private string $post_type;
 
-	public function __construct( \string $post_type, \string $singular_name, \string $plural_name, array $args = [] ) {
+	public function __construct( string $post_type, string $singular_name, string $plural_name, array $args = [] ) {
 		$this->post_type     = $post_type;
 		$this->singular_name = $singular_name;
 		$this->plural_name   = $plural_name;
@@ -41,7 +41,7 @@ class PostType {
 		return $this->plural_name;
 	}
 
-	public function create_post( \string $title, \string $content = '', \string $status = 'publish' ): int {
+	public function create_post( string $title, string $content = '', string $status = 'publish' ): int {
 		$post_id = wp_insert_post( [
 			'post_title'   => $title,
 			'post_content' => $content,
