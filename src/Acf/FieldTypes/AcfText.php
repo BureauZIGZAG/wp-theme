@@ -14,7 +14,7 @@ class AcfText extends \Freekattema\Wp\Acf\FieldTypes\AcfFieldType {
 		] );
 	}
 
-	public function default_value( string $value ): AcfText {
+	public function default_value( $value ): AcfText {
 		return $this->set_option( 'default_value', $value );
 	}
 
