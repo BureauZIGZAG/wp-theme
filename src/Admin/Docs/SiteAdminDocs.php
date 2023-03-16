@@ -2,30 +2,42 @@
 
 namespace Freekattema\Wp\Admin\Docs;
 
+use Exception;
+
 class SiteAdminDocs {
+	private $docsDir;
+
 	private static $instance = null;
 
 	private function __construct() {
 		try {
 			$this->check_needed_functions();
-		} catch ( \Exception $e ) {
+		} catch ( Exception $e ) {
 			error_log( $e->getMessage() );
+
 			return;
 		}
 
+		$this->docsDir = get_template_directory() . '/docs';
+
+		add_action( 'init', function () {
+			global $wp;
+			$wp->add_query_var( 'docs_screen' );
+			$wp->add_query_var( 'page' );
+		} );
 		add_action( 'admin_menu', [ $this, 'add_admin_menu' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 	}
 
 	public static function init() {
-		if ( !self::$instance ) {
+		if ( ! self::$instance ) {
 			self::$instance = new self;
 		}
 	}
 
-	public function admin_enqueue_scripts() {
+	public function enqueue_scripts() {
 		$screen = get_current_screen();
-		if ( !empty( $screen ) && $screen->id === 'dashboard_page_site-help' ) {
+		if ( ! empty( $screen ) && $screen->id === 'dashboard_page_site-help' ) {
 			wp_enqueue_style( 'site-help', plugins_url( 'site-help.css', __FILE__ ), [], '1.0.0', 'all' );
 			wp_enqueue_script( 'site-help', plugins_url( 'site-help.js', __FILE__ ), [], '1.0.0', true );
 		}
@@ -35,6 +47,10 @@ class SiteAdminDocs {
 		// add a new admin page for the docs
 		// it should only be visible to admins
 		add_dashboard_page( 'Site docs', 'Site docs', 'manage_options', 'site-help', [ $this, 'display_docs' ] );
+	}
+
+	public function display_docs() {
+		DisplayAdminDocs::init( $this->docsDir );
 	}
 
 	private function check_needed_functions() {
@@ -47,9 +63,9 @@ class SiteAdminDocs {
 			'wp_enqueue_script',
 		];
 
-		foreach ($needed_functions as $function) {
-			if(!function_exists($function)) {
-				throw new \Exception("Function $function is not available");
+		foreach ( $needed_functions as $function ) {
+			if ( ! function_exists( $function ) ) {
+				throw new Exception( "Function $function is not available" );
 			}
 		}
 	}
