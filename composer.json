@@ -1,0 +1,26 @@
+{
+  "name": "freekattema/wp-setup",
+  "description": "",
+  "autoload": {
+    "psr-4": {
+      "Freekattema\\Wp\\": "src/"
+    },
+    "files": [
+      "src/Buffer/init.php",
+      "src/ThemeSetup/Setup.php",
+      "src/Admin/Docs/InitDocs.php"
+    ]
+  },
+  "authors": [
+    {
+      "name": "freekattema",
+      "email": "freekattema@live.nl"
+    }
+  ],
+  "require": {
+    "php": ">=7.4",
+    "cebe/markdown": "~1.2.0"
+  },
+  "minimum-stability": "dev",
+  "license": "proprietary"
+}
