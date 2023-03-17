@@ -3,6 +3,9 @@
 namespace Freekattema\Wp\Admin\Docs;
 
 use Exception;
+use WP_REST_Request;
+
+define( 'ADMIN_DOCS_SLUG', 'site-help' );
 
 class SiteAdminDocs {
 	private $docsDir;
@@ -18,7 +21,7 @@ class SiteAdminDocs {
 			return;
 		}
 
-		$this->docsDir = get_template_directory() . '/docs';
+		$this->docsDir = self::get_docs_dir();
 
 		add_action( 'init', function () {
 			global $wp;
@@ -37,16 +40,38 @@ class SiteAdminDocs {
 
 	public function enqueue_scripts() {
 		$screen = get_current_screen();
-		if ( ! empty( $screen ) && $screen->id === 'dashboard_page_site-help' ) {
-			wp_enqueue_style( 'site-help', plugins_url( 'site-help.css', __FILE__ ), [], '1.0.0', 'all' );
-			wp_enqueue_script( 'site-help', plugins_url( 'site-help.js', __FILE__ ), [], '1.0.0', true );
+
+		$currentDirUrl = str_replace( get_template_directory(), get_template_directory_uri(), __DIR__ );
+		$scripts       = [
+			'site-docs-script' => $currentDirUrl . '/assets/siteDocs.js',
+			'highlight-lib'    => $currentDirUrl . '/assets/highlighter.js',
+		];
+		$styles        = [
+			'site-docs-style' => $currentDirUrl . '/assets/DocsStyling.min.css',
+			'highlight'       => $currentDirUrl . '/assets/github-dark.min.css',
+		];
+
+		foreach ( $scripts as $handle => $script ) {
+			wp_enqueue_script( $handle, $script, [], '1.0.0', true );
 		}
+
+		foreach ( $styles as $handle => $style ) {
+			wp_enqueue_style( $handle, $style, [], '1.0.0', 'all' );
+		}
+
+		wp_localize_script( 'site-docs-script', 'siteDocs', [
+			'rest_root'     => esc_url_raw( rest_url() ),
+			'rest_path'     => 'zigzag-engine/v1/docs',
+			'nonce'         => wp_create_nonce( 'wp_rest' ),
+			'currentScreen' => $screen->id,
+			'currentSlug'   => ADMIN_DOCS_SLUG,
+		] );
 	}
 
 	public function add_admin_menu() {
 		// add a new admin page for the docs
 		// it should only be visible to admins
-		add_dashboard_page( 'Site docs', 'Site docs', 'manage_options', 'site-help', [ $this, 'display_docs' ] );
+		add_dashboard_page( 'Site docs', 'Site docs', 'manage_options', ADMIN_DOCS_SLUG, [ $this, 'display_docs' ] );
 	}
 
 	public function display_docs() {
@@ -68,5 +93,19 @@ class SiteAdminDocs {
 				throw new Exception( "Function $function is not available" );
 			}
 		}
+	}
+
+	public static function get_docs_rest( WP_REST_Request $request ) {
+		$page = $request->get_param( 'page' ) ?? 'index.md';
+
+		$docs = DisplayAdminDocs::init( self::get_docs_dir(), true );
+
+		$html = $docs->markdownToHtml( $page );
+
+		return $html;
+	}
+
+	private static function get_docs_dir() {
+		return get_template_directory() . '/docs';
 	}
 }

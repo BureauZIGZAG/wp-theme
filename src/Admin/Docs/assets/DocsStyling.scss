@@ -1,0 +1,125 @@
+$colors: (
+        text: #AFAFAF,
+        link: var(--wp-colors-3, #01FF70),
+        link-hover: var(--wp-colors-4, #2ECC40),
+        headers: #AFAFAF,
+        background: var(--wp-colors-1, #222222),
+        code-background: var(--wp-colors-2, #222222),
+);
+
+:root {
+  @each $name, $color in $colors {
+    --markdown-color-#{$name}: #{$color};
+  }
+}
+
+@function get-color($name) {
+  @return var(--markdown-color-#{$name});
+}
+
+$text-color: get-color(text);
+$link-color: get-color(link);
+$link-hover-color: get-color(link-hover);
+$background-color: get-color(background);
+$heading-color: get-color(headers);
+$code-background-color: get-color(code-background);
+
+body {
+  background-color: $background-color;
+}
+
+.markdown-container {
+  background-color: $background-color;
+  min-height: 100%;
+  color: $text-color;
+  font-family: "Courier New", sans-serif;
+  line-height: 1.45;
+
+  .markdown-content {
+    margin: 6rem auto 1rem;
+    max-width: 48rem;
+    padding: .25rem;
+
+    &.next-page {
+      display: none;
+    }
+
+    pre,
+    code {
+      font-family: Menlo, Monaco, "Courier New", monospace;
+    }
+
+    pre {
+      padding: .5rem;
+      line-height: 1.25;
+      overflow-x: scroll;
+    }
+
+    a {
+      color: $link-color;
+      text-decoration: none;
+
+      &:hover,
+      &:focus,
+      &:active {
+        color: $link-hover-color;
+      }
+    }
+
+    p {
+      font-size: 1rem;
+      margin-bottom: 1.3rem;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      color: var(--color-text);
+      margin: 1.414rem 0 .5rem;
+      font-weight: inherit;
+      line-height: 1.2;
+    }
+
+    $headerSizes: (
+            h1: 45px,
+            h2: 39px,
+            h3: 32px,
+            h4: 26px,
+            h5: 1.5rem,
+            h6: .88rem,
+            small: .707em,
+    );
+
+    @each $header, $size in $headerSizes {
+      #{$header} {
+        font-size: $size;
+      }
+    }
+
+    img,
+    canvas,
+    iframe,
+    video,
+    svg,
+    select,
+    textarea {
+      max-width: 100%;
+    }
+
+    pre {
+      background-color: $code-background-color;
+    }
+
+    blockquote {
+      border-left: 3px solid $link-color;
+      padding-left: 1rem;
+    }
+
+    li > ul {
+      margin-left: 1.5rem;
+    }
+
+    li {
+      margin-bottom: 0;
+    }
+  }
+
+}
