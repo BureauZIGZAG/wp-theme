@@ -13,6 +13,10 @@ $colors: (
   }
 }
 
+.wpcontent {
+  border-left: 1px solid var(--wp-colors-2, #222222);
+}
+
 @function get-color($name) {
   @return var(--markdown-color-#{$name});
 }
