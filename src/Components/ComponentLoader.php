@@ -5,9 +5,13 @@ namespace Freekattema\Wp\Components;
 class ComponentLoader {
     private function __construct() {}
 
-    public static function load($directory = null) {
+    public static function load($directory = null, $fromParent = false) {
         if(!$directory) {
-            $directory = get_template_directory() . '/Components';
+            $directory = get_stylesheet_directory() . '/Components';
+
+			if($fromParent) {
+				$directory = get_template_directory() . '/Components';
+			}
         }
 
         if(!is_dir($directory)) {
