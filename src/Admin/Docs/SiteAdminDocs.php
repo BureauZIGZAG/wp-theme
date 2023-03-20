@@ -39,6 +39,8 @@ class SiteAdminDocs {
 	}
 
 	public function enqueue_scripts() {
+		if(!isset($_GET['page']) || $_GET['page'] !== ADMIN_DOCS_SLUG) return;  // only load scripts on docs page
+
 		$screen = get_current_screen();
 
 
