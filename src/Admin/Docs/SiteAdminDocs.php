@@ -41,7 +41,18 @@ class SiteAdminDocs {
 	public function enqueue_scripts() {
 		$screen = get_current_screen();
 
-		$currentDirUrl = str_replace( get_template_directory(), get_template_directory_uri(), __DIR__ );
+
+		// find uri of current dir
+		$currentDir         = __DIR__;
+		$currentTemplateUri = get_template_directory_uri();
+
+		$currentDir = explode( '/wp-content/themes/', $currentDir )[1];
+		// remove parent dir from current dir
+		$currentDir = '/wp-content/themes/' . $currentDir;
+
+
+		// add template uri to current dir
+		$currentDirUrl = $currentDir;
 		$scripts       = [
 			'site-docs-script' => $currentDirUrl . '/assets/siteDocs.js',
 			'highlight-lib'    => $currentDirUrl . '/assets/highlighter.js',
