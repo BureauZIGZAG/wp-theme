@@ -30,6 +30,7 @@ class SiteAdminDocs {
 		} );
 		add_action( 'admin_menu', [ $this, 'add_admin_menu' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+        add_action('admin_head', [$this, 'admin_head']);
 	}
 
 	public static function init() {
@@ -38,8 +39,21 @@ class SiteAdminDocs {
 		}
 	}
 
+    public function admin_head() {
+        if(!isset($_GET['page']) || $_GET['page'] !== ADMIN_DOCS_SLUG) return;  // only load scripts on docs page
+
+        // hide all admin notices
+        echo "<style>.update-nag, .updated, .error, .is-dismissible { display: none; }</style>";
+    }
+
 	public function enqueue_scripts() {
 		if(!isset($_GET['page']) || $_GET['page'] !== ADMIN_DOCS_SLUG) return;  // only load scripts on docs page
+        // disable wordpress notifcations
+        add_filter( 'site_transient_update_core', function ( $value ) {
+            unset( $value->response[ 'core' ] );
+
+            return $value;
+        } );
 
 		$screen = get_current_screen();
 
