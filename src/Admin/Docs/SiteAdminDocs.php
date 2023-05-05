@@ -43,7 +43,7 @@ class SiteAdminDocs {
         if(!isset($_GET['page']) || $_GET['page'] !== ADMIN_DOCS_SLUG) return;  // only load scripts on docs page
 
         // hide all admin notices
-        echo "<style>.update-nag, .updated, .error, .is-dismissible { display: none; }</style>";
+        echo "<style>.notice { display: none !important; }</style>";
     }
 
 	public function enqueue_scripts() {
