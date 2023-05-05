@@ -2,8 +2,8 @@
 
 namespace Freekattema\Wp\Acf;
 
-use Freekattema\Wp\Acf\FieldTypes\AcfFieldType;
 use Freekattema\Wp\Shared\Traits\AddAction;
+use Freekattema\Wp\Acf\FieldTypes\AcfFieldType;
 use Freekattema\Wp\Acf\FieldTypes\Helpers\AcfGroupStyle;
 use Freekattema\Wp\Acf\FieldTypes\Helpers\AcfGroupPosition;
 
@@ -42,7 +42,7 @@ class AcfGroup {
 		$this->add_action( 'acf/init', 'register' );
 	}
 
-	private function register() {
+	public function register() {
 		$content = [
 			'key'      => $this->get_key(),
 			'title'    => $this->title,
