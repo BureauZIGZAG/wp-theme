@@ -6,7 +6,6 @@
       "Freekattema\\Wp\\": "src/"
     },
     "files": [
-      "src/Buffer/init.php",
       "src/ThemeSetup/Setup.php",
       "src/Admin/Docs/InitDocs.php"
     ]
