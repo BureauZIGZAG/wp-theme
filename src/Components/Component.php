@@ -3,6 +3,7 @@
 namespace Freekattema\Wp\Components;
 
 use Exception;
+use Twig\Extension\DebugExtension;
 
 abstract class Component
 {
@@ -40,8 +41,27 @@ abstract class Component
         if (!file_exists($this->template)) {
             throw new Exception("Template file {$this->template} does not exist");
         }
-        ComponentData::_set_data($this->props);
-        include $this->template;
+
+        if(str_ends_with($this->template, '.php')) {
+            ComponentData::_set_data($this->props);
+            include $this->template;
+        } else if (str_ends_with($this->template, '.twig')) {
+            $this->render_twig();
+        } else {
+            throw new Exception("Template file {$this->template} has invalid extension");
+        }
+    }
+
+    private function render_twig()
+    {
+        $loader = new \Twig\Loader\FilesystemLoader(dirname($this->template));
+        $twig = new \Twig\Environment($loader, [
+            'cache' => false,
+        ]);
+
+        $twig->addExtension(new  DebugExtension());
+
+        $twig->display(basename($this->template), $this->props->get_all());
     }
 
     abstract function get_template(): string;

@@ -18,7 +18,8 @@
   ],
   "require": {
     "php": ">=7.4",
-    "cebe/markdown": "~1.2.0"
+    "cebe/markdown": "~1.2.0",
+    "twig/twig": "^3.0"
   },
   "minimum-stability": "dev",
   "license": "proprietary"
