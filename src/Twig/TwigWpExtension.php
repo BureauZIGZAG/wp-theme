@@ -20,7 +20,7 @@ class TwigWpExtension extends AbstractExtension {
     {
         return [
             // get wp menu
-            new \Twig\TwigFunction('wp_menu', [$this, 'get_menu'], ['raw' => true]),
+            new \Twig\TwigFunction('wp_menu', [$this, 'get_menu'], ['is_safe' => ['html']]),
             // get post thumbnail
             new \Twig\TwigFunction('wp_thumbnail', [$this, 'get_thumbnail']),
             // get thumbnail src
