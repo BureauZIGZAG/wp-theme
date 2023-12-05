@@ -16,6 +16,10 @@ class TwigComponentPart extends AbstractExtension {
         global $current_component;
         $current_template_dirname = dirname($current_component);
         $path = $current_template_dirname . '/parts/' . $path;
+        $has_extension = str_ends_with($path, '.twig') || str_ends_with($path, '.php');
+        if(!$has_extension) {
+            $path .= '.twig';
+        }
         $part = new ComponentPart($path);
         $part->render($data);
     }
