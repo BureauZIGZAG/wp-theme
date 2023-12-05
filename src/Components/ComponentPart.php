@@ -9,7 +9,7 @@ use Twig\Extension\DebugExtension;
 class ComponentPart
 {
     private string $path;
-    private bool $is_twig = false;
+    private bool $is_twig;
 
     /**
      * @param string $path
@@ -23,7 +23,7 @@ class ComponentPart
     public function render(array $data = [])
     {
         if (!file_exists($this->path)) {
-            throw new Exception("Template file {$this->path} does not exist");
+            throw new \Exception("Template file {$this->path} does not exist");
         }
 
         TwigRenderer::render($this->path, $data);

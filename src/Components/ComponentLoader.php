@@ -7,10 +7,10 @@ class ComponentLoader {
 
     public static function load($directory = null, $fromParent = false) {
         if(!$directory) {
-            $directory = get_stylesheet_directory() . '/Components';
+            $directory = \get_stylesheet_directory() . '/Components';
 
 			if($fromParent) {
-				$directory = get_template_directory() . '/Components';
+				$directory = \get_template_directory() . '/Components';
 			}
         }
 

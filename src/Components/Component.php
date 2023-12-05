@@ -3,9 +3,7 @@
 namespace Freekattema\Wp\Components;
 
 use Exception;
-use Freekattema\Wp\Twig\TwigComponentPart;
 use Freekattema\Wp\Twig\TwigRenderer;
-use Twig\Extension\DebugExtension;
 
 abstract class Component
 {
@@ -55,7 +53,7 @@ abstract class Component
 
     public static function current_user_is_admin(): bool
     {
-        return current_user_can('administrator');
+        return \current_user_can('administrator');
     }
 
     abstract function get_template(): string;

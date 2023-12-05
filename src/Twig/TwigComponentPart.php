@@ -7,7 +7,8 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 class TwigComponentPart extends AbstractExtension {
-    public function getFunctions() {
+    public function getFunctions(): array
+    {
         return [
             new TwigFunction('part', [$this, 'render_part'], ['is_safe' => ['html']]),
         ];
