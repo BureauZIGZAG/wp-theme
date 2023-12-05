@@ -32,6 +32,10 @@ abstract class Component
 
     final public function render()
     {
+        global $current_component;
+        $old_component = $current_component;
+        $current_component = /** get current component */ $this->get_template();
+
         $this->template = $this->get_template();
 
         if (!$this->before_render()) {
@@ -39,6 +43,7 @@ abstract class Component
         }
 
         if (!file_exists($this->template)) {
+            $current_component = $old_component;
             throw new Exception("Template file {$this->template} does not exist");
         }
 
@@ -48,8 +53,15 @@ abstract class Component
         } else if (str_ends_with($this->template, '.twig')) {
             $this->render_twig();
         } else {
+            $current_component = $old_component;
             throw new Exception("Template file {$this->template} has invalid extension");
         }
+        $current_component = $old_component;
+    }
+
+    public static function current_user_is_admin(): bool
+    {
+        return current_user_can('administrator');
     }
 
     private function render_twig()
@@ -58,8 +70,9 @@ abstract class Component
         $twig = new \Twig\Environment($loader, [
             'cache' => false,
         ]);
-
-        $twig->addExtension(new  DebugExtension());
+        if (self::current_user_is_admin()) {
+            $twig->addExtension(new  DebugExtension());
+        }
 
         $twig->display(basename($this->template), $this->props->get_all());
     }
@@ -73,5 +86,21 @@ abstract class Component
     protected function before_render(): bool
     {
         return true;
+    }
+
+    public static function Part(string $name): ComponentPart {
+        // get dir of current component
+        $reflector = new \ReflectionClass(static::class);
+        $dir = dirname($reflector->getFileName());
+        $possible_paths = [
+            "{$dir}/parts/{$name}.php",
+            "{$dir}/parts/{$name}.twig",
+        ];
+
+        foreach($possible_paths as $path) {
+            if(file_exists($path)) {
+                return new ComponentPart($path);
+            }
+        }
     }
 }
