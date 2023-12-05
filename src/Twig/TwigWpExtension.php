@@ -20,7 +20,7 @@ class TwigWpExtension extends AbstractExtension {
     {
         return [
             // get wp menu
-            new \Twig\TwigFunction('wp_menu', [$this, 'get_menu']),
+            new \Twig\TwigFunction('wp_menu', [$this, 'get_menu'], ['raw' => true]),
             // get post thumbnail
             new \Twig\TwigFunction('wp_thumbnail', [$this, 'get_thumbnail']),
             // get thumbnail src
@@ -47,12 +47,16 @@ class TwigWpExtension extends AbstractExtension {
     }
 
     public function get_menu(string $menu_name, array $args = []) {
-        return \wp_nav_menu(array_merge([
+        ob_start();
+        \wp_nav_menu(array_merge([
             'menu' => $menu_name,
             'echo' => false,
             'container' => false,
             'items_wrap' => '%3$s',
         ], $args));
+        $menu = ob_get_contents();
+        ob_end_clean();
+        return $menu;
     }
 
     public function get_thumbnail(int $post_id = null, string $size = 'thumbnail') {
