@@ -1,11 +1,8 @@
 <?php
 
-namespace Freekattema\Wp\Components;
+namespace Freekattema\Wp\Twig;
 
-use \Twig\Environment;
 use Twig\Extension\AbstractExtension;
-use \Twig\Loader\FilesystemLoader;
-use \Twig\Extension\DebugExtension;
 
 class TwigAcfExtension extends AbstractExtension {
     public function getFunctions()

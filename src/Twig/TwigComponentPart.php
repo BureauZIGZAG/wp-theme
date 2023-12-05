@@ -1,7 +1,8 @@
 <?php
 
-namespace Freekattema\Wp\Components;
+namespace Freekattema\Wp\Twig;
 
+use Freekattema\Wp\Components\ComponentPart;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 

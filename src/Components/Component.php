@@ -3,6 +3,8 @@
 namespace Freekattema\Wp\Components;
 
 use Exception;
+use Freekattema\Wp\Twig\TwigComponentPart;
+use Freekattema\Wp\Twig\TwigRenderer;
 use Twig\Extension\DebugExtension;
 
 abstract class Component
@@ -47,35 +49,13 @@ abstract class Component
             throw new Exception("Template file {$this->template} does not exist");
         }
 
-        if(str_ends_with($this->template, '.php')) {
-            ComponentData::_set_data($this->props);
-            include $this->template;
-        } else if (str_ends_with($this->template, '.twig')) {
-            $this->render_twig();
-        } else {
-            $current_component = $old_component;
-            throw new Exception("Template file {$this->template} has invalid extension");
-        }
+        TwigRenderer::render($this->template, $this->props->get_all());
         $current_component = $old_component;
     }
 
     public static function current_user_is_admin(): bool
     {
         return current_user_can('administrator');
-    }
-
-    private function render_twig()
-    {
-        $loader = new \Twig\Loader\FilesystemLoader(dirname($this->template));
-        $twig = new \Twig\Environment($loader, [
-            'cache' => false,
-        ]);
-        if (self::current_user_is_admin()) {
-            $twig->addExtension(new  DebugExtension());
-            $twig->addExtension(new TwigComponentPart());
-        }
-
-        $twig->display(basename($this->template), $this->props->get_all());
     }
 
     abstract function get_template(): string;
@@ -93,6 +73,7 @@ abstract class Component
         // get dir of current component
         $reflector = new \ReflectionClass(static::class);
         $dir = dirname($reflector->getFileName());
+
         $possible_paths = [
             "{$dir}/parts/{$name}.php",
             "{$dir}/parts/{$name}.twig",

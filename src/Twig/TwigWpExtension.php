@@ -1,11 +1,19 @@
 <?php
 
-namespace Freekattema\Wp\Components;
+namespace Freekattema\Wp\Twig;
 
-use \Twig\Environment;
 use Twig\Extension\AbstractExtension;
-use \Twig\Loader\FilesystemLoader;
-use \Twig\Extension\DebugExtension;
+use function Freekattema\Wp\Components\get_permalink;
+use function Freekattema\Wp\Components\get_post;
+use function Freekattema\Wp\Components\get_post_meta;
+use function Freekattema\Wp\Components\get_the_author_meta;
+use function Freekattema\Wp\Components\get_the_content;
+use function Freekattema\Wp\Components\get_the_date;
+use function Freekattema\Wp\Components\get_the_excerpt;
+use function Freekattema\Wp\Components\get_the_ID;
+use function Freekattema\Wp\Components\get_the_post_thumbnail;
+use function Freekattema\Wp\Components\get_the_post_thumbnail_url;
+use function Freekattema\Wp\Components\get_the_title;
 
 class TwigWpExtension extends AbstractExtension {
     public function getFunctions()
