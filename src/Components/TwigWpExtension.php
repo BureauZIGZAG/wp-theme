@@ -39,7 +39,7 @@ class TwigWpExtension extends AbstractExtension {
     }
 
     public function get_menu(string $menu_name, array $args = []) {
-        return wp_nav_menu(array_merge([
+        return \wp_nav_menu(array_merge([
             'menu' => $menu_name,
             'echo' => false,
             'container' => false,
