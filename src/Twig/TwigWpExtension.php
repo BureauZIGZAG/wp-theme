@@ -61,78 +61,78 @@ class TwigWpExtension extends AbstractExtension {
 
     public function get_thumbnail(int $post_id = null, string $size = 'thumbnail') {
         if($post_id === null) {
-            $post_id = get_the_ID();
+            $post_id = \get_the_ID();
         }
-        return get_the_post_thumbnail($post_id, $size);
+        return \get_the_post_thumbnail($post_id, $size);
     }
 
     public function get_thumbnail_src(int $post_id = null, string $size = 'thumbnail') {
         if($post_id === null) {
-            $post_id = get_the_ID();
+            $post_id = \get_the_ID();
         }
-        return get_the_post_thumbnail_url($post_id, $size);
+        return \get_the_post_thumbnail_url($post_id, $size);
     }
 
     public function get_thumbnail_alt(int $post_id = null, string $size = 'thumbnail') {
         if($post_id === null) {
-            $post_id = get_the_ID();
+            $post_id = \get_the_ID();
         }
-        return get_post_meta(get_post_thumbnail_id($post_id), '_wp_attachment_image_alt', true);
+        return \get_post_meta(\get_post_thumbnail_id($post_id), '_wp_attachment_image_alt', true);
     }
 
     public function get_thumbnail_element(int $post_id = null, string $size = 'thumbnail') {
         if($post_id === null) {
-            $post_id = get_the_ID();
+            $post_id = \get_the_ID();
         }
-        return get_the_post_thumbnail($post_id, $size);
+        return \get_the_post_thumbnail($post_id, $size);
     }
 
     public function get_post(int $post_id = null) {
         if($post_id === null) {
-            $post_id = get_the_ID();
+            $post_id = \get_the_ID();
         }
-        return get_post($post_id);
+        return \get_post($post_id);
     }
 
     public function get_title(int $post_id = null) {
         if($post_id === null) {
-            $post_id = get_the_ID();
+            $post_id = \get_the_ID();
         }
-        return get_the_title($post_id);
+        return \get_the_title($post_id);
     }
 
     public function get_permalink(int $post_id = null) {
         if($post_id === null) {
-            $post_id = get_the_ID();
+            $post_id = \get_the_ID();
         }
-        return get_permalink($post_id);
+        return \get_permalink($post_id);
     }
 
     public function get_date(string $format = 'd.m.Y', int $post_id = null) {
         if($post_id === null) {
-            $post_id = get_the_ID();
+            $post_id = \get_the_ID();
         }
-        return get_the_date($format, $post_id);
+        return \get_the_date($format, $post_id);
     }
 
     public function get_author(int $post_id = null) {
         if($post_id === null) {
-            $post_id = get_the_ID();
+            $post_id = \get_the_ID();
         }
-        return get_the_author_meta('display_name', get_post_field('post_author', $post_id));
+        return \get_the_author_meta('display_name', get_post_field('post_author', $post_id));
     }
 
     public function get_excerpt(int $post_id = null) {
         if($post_id === null) {
-            $post_id = get_the_ID();
+            $post_id = \get_the_ID();
         }
-        return get_the_excerpt($post_id);
+        return \get_the_excerpt($post_id);
     }
 
     public function get_content(int $post_id = null) {
         if($post_id === null) {
-            $post_id = get_the_ID();
+            $post_id = \get_the_ID();
         }
-        return get_the_content($post_id);
+        return \get_the_content($post_id);
     }
 }
