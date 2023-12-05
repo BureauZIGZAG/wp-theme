@@ -72,6 +72,7 @@ abstract class Component
         ]);
         if (self::current_user_is_admin()) {
             $twig->addExtension(new  DebugExtension());
+            $twig->addExtension(new TwigComponentPart());
         }
 
         $twig->display(basename($this->template), $this->props->get_all());

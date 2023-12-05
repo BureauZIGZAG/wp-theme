@@ -38,6 +38,7 @@ class ComponentPart
 
         if(Component::current_user_is_admin()) {
             $twig->addExtension(new DebugExtension());
+            $twig->addExtension(new TwigComponentPart());
         }
 
 
