@@ -2,6 +2,10 @@
 
 namespace Freekattema\Wp\Components;
 
+use Twig\Extension\DebugExtension;
+use Twig\Loader\FilesystemLoader;
+use Twig\Environment;
+
 class ComponentPart
 {
     private string $path;
