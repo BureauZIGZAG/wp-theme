@@ -47,16 +47,12 @@ class TwigWpExtension extends AbstractExtension {
     }
 
     public function get_menu(string $menu_name, array $args = []) {
-        ob_start();
         \wp_nav_menu(array_merge([
             'menu' => $menu_name,
-            'echo' => false,
+            'echo' => true,
             'container' => false,
             'items_wrap' => '%3$s',
         ], $args));
-        $menu = ob_get_contents();
-        ob_end_clean();
-        echo $menu;
     }
 
     public function get_thumbnail(int $post_id = null, string $size = 'thumbnail') {

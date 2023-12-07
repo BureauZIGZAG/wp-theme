@@ -21,6 +21,10 @@ class TwigAcfExtension extends AbstractExtension {
             new TwigFunction('acf_image_alt', [$this, 'get_image_alt']),
             // get acf image element
             new TwigFunction('acf_image_element', [$this, 'get_image_element']),
+            // get acf option
+            new TwigFunction('acf_option', [$this, 'get_option']),
+            // get acf option image
+            new TwigFunction('acf_option_image', [$this, 'get_option_image']),
             ];
     }
 
@@ -39,11 +43,11 @@ class TwigAcfExtension extends AbstractExtension {
         return \get_field($field_name, $post_id);
     }
 
-    public function get_image_src(string $field_name, $post_id = null, string $size = 'thumbnail') {
+    public function get_image_src(string $field_name, $post_id = null) {
         if(!function_exists('get_field')) return "";
         $image = \get_field($field_name, $post_id);
         if(!$image) return "";
-        return $image['sizes'][$size] ?? "";
+        return $image['url'] ?? "";
     }
 
     public function get_image_alt(string $field_name, $post_id = null) {
@@ -53,10 +57,25 @@ class TwigAcfExtension extends AbstractExtension {
         return $image['alt'] ?? "";
     }
 
-    public function get_image_element(string $field_name, $post_id = null, string $size = 'thumbnail') {
+    public function get_image_element(string $field_name, $post_id = null) {
         if(!function_exists('get_field')) return "";
         $image = \get_field($field_name, $post_id);
         if(!$image) return "";
-        return "<img src='{$image['sizes'][$size]}' alt='{$image['alt']}' />";
+        return "<img src='{$image['url']}' alt='{$image['alt']}' />";
+    }
+
+    public function get_option(string $option_name, $default = null) {
+        if(!function_exists('get_field')) return "";
+        return \get_field($option_name, 'option') ?? $default;
+    }
+
+    public function get_option_image(string $option_name, $field=null) {
+        if(!function_exists('get_field')) return "";
+        $image = \get_field($option_name, 'option');
+        if(!$image) return "";
+        if($field) {
+            return $image[$field] ?? "";
+        }
+        return $image;
     }
 }
