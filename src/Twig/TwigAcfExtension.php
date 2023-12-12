@@ -66,12 +66,12 @@ class TwigAcfExtension extends AbstractExtension {
 
     public function get_option(string $option_name, $default = null) {
         if(!function_exists('get_field')) return "";
-        return \get_field($option_name, 'option') ?? $default;
+        return \get_field($option_name, 'options') ?? $default;
     }
 
     public function get_option_image(string $option_name, $field=null) {
         if(!function_exists('get_field')) return "";
-        $image = \get_field($option_name, 'option');
+        $image = \get_field($option_name, 'options');
         if(!$image) return "";
         if($field) {
             return $image[$field] ?? "";
