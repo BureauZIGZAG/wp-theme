@@ -45,6 +45,8 @@ class TwigWpExtension extends AbstractExtension {
             new \Twig\TwigFunction('wp_content', [$this, 'get_content']),
             // get home url
             new \Twig\TwigFunction('wp_home_url', [$this, 'get_home_url']),
+            // get site url
+            new \Twig\TwigFunction('wp_site_url', [$this, 'get_site_url']),
             ];
     }
 
@@ -134,5 +136,9 @@ class TwigWpExtension extends AbstractExtension {
 
     public function get_home_url() {
         echo \get_home_url();
+    }
+
+    public function get_site_url() {
+        echo \get_site_url();
     }
 }
