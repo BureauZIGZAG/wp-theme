@@ -43,6 +43,8 @@ class TwigWpExtension extends AbstractExtension {
             new \Twig\TwigFunction('wp_excerpt', [$this, 'get_excerpt']),
             // get post content
             new \Twig\TwigFunction('wp_content', [$this, 'get_content']),
+            // get home url
+            new \Twig\TwigFunction('wp_home_url', [$this, 'get_home_url']),
             ];
     }
 
@@ -128,5 +130,9 @@ class TwigWpExtension extends AbstractExtension {
             $post_id = \get_the_ID();
         }
         echo \get_the_content($post_id);
+    }
+
+    public function get_home_url() {
+        echo \get_home_url();
     }
 }
