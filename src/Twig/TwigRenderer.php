@@ -19,11 +19,12 @@ final class TwigRenderer {
     }
 
     public static function render(string $template, array $data = []) {
+        $fullPath = $template;
         $loader = new FilesystemLoader(dirname($template));
         $template = basename($template);
         if(str_ends_with($template, '.php')) {
             ComponentData::_set_data(new ComponentData($data));
-            include $template;
+            include $fullPath;
         } else if (str_ends_with($template, '.twig')) {
             $twig = self::get_env($loader);
             $twig->display(basename($template), $data);
