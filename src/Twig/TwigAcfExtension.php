@@ -52,10 +52,9 @@ class TwigAcfExtension extends AbstractExtension {
         return $image['url'] ?? "";
     }
 
-    public function get_image(string $field_name, $post_id = null) {
+    public function get_image(...$args) {
         if(!function_exists('get_field')) return "";
-        $image = \get_field($field_name, $post_id);
-        return get_image($image);
+        return get_image(...$args);
     }
 
     public function get_image_alt(string $field_name, $post_id = null) {
