@@ -47,6 +47,8 @@ class TwigWpExtension extends AbstractExtension {
             new \Twig\TwigFunction('wp_home_url', [$this, 'get_home_url']),
             // get site url
             new \Twig\TwigFunction('wp_site_url', [$this, 'get_site_url']),
+            // set wp shortcode
+            new \Twig\TwigFunction('wp_shortcode', [$this, 'set_shortcode']),
             ];
     }
 
@@ -142,4 +144,9 @@ class TwigWpExtension extends AbstractExtension {
     public function get_site_url() {
         return  \get_site_url();
     }
+
+    public function set_shortcode(string $shortcode) {
+        return do_shortcode($shortcode);
+    }
+
 }

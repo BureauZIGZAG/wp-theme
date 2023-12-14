@@ -27,9 +27,27 @@ final class TwigRenderer {
             include $fullPath;
         } else if (str_ends_with($template, '.twig')) {
             $twig = self::get_env($loader);
-            $twig->display(basename($template), $data);
+            $twig->display(basename($template), self::fill_default_data($data));
         } else {
             throw new \Exception("Template file {$template} has invalid extension");
         }
+    }
+
+    private static function fill_default_data(array $data): array {
+        $data = array_merge([
+            "is_admin" => is_user_logged_in() && current_user_can('administrator'),
+            "is_logged_in" => is_user_logged_in(),
+            "current_user" => wp_get_current_user(),
+            "the_title" => get_the_title(),
+            "the_content" => get_the_content(),
+            "the_permalink" => get_the_permalink(),
+            "the_excerpt" => get_the_excerpt(),
+            "the_date" => get_the_date(),
+            "the_author" => get_the_author(),
+            "the_post_thumbnail" => get_thumbnail(),
+            "the_post_type" => get_post_type(),
+            "the_post" => get_post(),
+        ], $data);
+        return \apply_filters("zigzag_twig_data", $data);
     }
 }
