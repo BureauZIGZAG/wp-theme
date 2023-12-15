@@ -11,6 +11,7 @@ class TwigComponentPart extends AbstractExtension {
     {
         return [
             new TwigFunction('part', [$this, 'render_part'], ['is_safe' => ['html']]),
+            new TwigFunction('dump', [$this, 'dump'], ['is_safe' => ['html']])
         ];
     }
 
@@ -24,5 +25,9 @@ class TwigComponentPart extends AbstractExtension {
         }
         $part = new ComponentPart($path);
         $part->render($data);
+    }
+
+    public function dump(...$args) {
+        return var_export($args, true);
     }
 }
