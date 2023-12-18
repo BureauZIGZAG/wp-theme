@@ -23,12 +23,12 @@ class TwigAcfExtension extends AbstractExtension {
             new TwigFunction('acf_image_element', [$this, 'get_image_element']),
             // get image
             new TwigFunction('get_image', [$this, 'get_image']),
+            // get link
+            new TwigFunction('get_link', [$this, 'get_link']),
             // get acf option
             new TwigFunction('acf_option', [$this, 'get_option']),
             // get acf option image
             new TwigFunction('acf_option_image', [$this, 'get_option_image']),
-            // get link
-            new TwigFunction('get_link', [$this, 'get_link']),
             ];
     }
 
@@ -59,6 +59,12 @@ class TwigAcfExtension extends AbstractExtension {
         return get_image(...$args);
     }
 
+
+    public function get_link(...$args) {
+        if(!function_exists('get_field')) return "";
+        return get_link_object(...$args);
+    }
+
     public function get_image_alt(string $field_name, $post_id = null) {
         if(!function_exists('get_field')) return "";
         $image = \get_field($field_name, $post_id);
@@ -82,11 +88,5 @@ class TwigAcfExtension extends AbstractExtension {
         if(!function_exists('get_field')) return "";
         $image = \get_field($option_name, 'options');
         return get_image($image, $field);
-    }
-
-
-    public function get_link(...$args) {
-        if(!function_exists('get_field')) return "";
-        return get_link_object(...$args);
     }
 }
