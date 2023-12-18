@@ -11,6 +11,7 @@ class TwigComponentPart extends AbstractExtension {
     {
         return [
             new TwigFunction('part', [$this, 'render_part'], ['is_safe' => ['html']]),
+            new TwigFunction('component', [$this, 'render_component'], ['is_safe' => ['html']]),
             new TwigFunction('dump', [$this, 'dump'], ['is_safe' => ['html']]),
             new TwigFunction('get', [$this, 'get'], ['is_safe' => ['html']]),
         ];
@@ -26,6 +27,14 @@ class TwigComponentPart extends AbstractExtension {
         }
         $part = new ComponentPart($path);
         $part->render($data);
+    }
+
+    public function render_component(string $component, array $data = []) {
+        if (!class_exists($component)) {
+            throw new \Exception("Component class {$component} does not exist");
+        }
+
+        $component::display($data);
     }
 
     public function dump(...$args) {
