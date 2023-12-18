@@ -48,6 +48,13 @@ final class TwigRenderer {
             "the_post_type" => get_post_type(),
             "the_post" => get_post(),
         ], $data);
+        // convert all keys to snake case recursively for use in twig
+        $data = array_map(function($value) {
+            if(is_array($value)) {
+                return self::fill_default_data($value);
+            }
+            return $value;
+        }, array_change_key_case($data, CASE_LOWER));
         return \apply_filters("zigzag_twig_data", $data);
     }
 }
