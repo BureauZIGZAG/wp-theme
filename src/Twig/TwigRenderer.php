@@ -48,13 +48,20 @@ final class TwigRenderer {
             "the_post_type" => get_post_type(),
             "the_post" => get_post(),
         ], $data);
-        // convert all keys to snake case recursively for use in twig
-        $data = array_map(function($value) {
-            if(is_array($value)) {
-                return self::fill_default_data($value);
-            }
-            return $value;
-        }, array_change_key_case($data, CASE_LOWER));
+        $data = self::snake_keys($data);
         return \apply_filters("zigzag_twig_data", $data);
+    }
+
+    private static function snake_keys($data) {
+        $output = [];
+        foreach($data as $key => $value) {
+            // replace - with _
+            $key = str_replace('-', '_', $key);
+            if (is_array($value)) {
+                $value = self::snake_keys($value);
+            }
+            $output[$key] = $value;
+        }
+        return $output;
     }
 }
