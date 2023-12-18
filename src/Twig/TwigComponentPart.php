@@ -11,7 +11,8 @@ class TwigComponentPart extends AbstractExtension {
     {
         return [
             new TwigFunction('part', [$this, 'render_part'], ['is_safe' => ['html']]),
-            new TwigFunction('dump', [$this, 'dump'], ['is_safe' => ['html']])
+            new TwigFunction('dump', [$this, 'dump'], ['is_safe' => ['html']]),
+            new TwigFunction('get', [$this, 'get'], ['is_safe' => ['html']]),
         ];
     }
 
@@ -29,5 +30,16 @@ class TwigComponentPart extends AbstractExtension {
 
     public function dump(...$args) {
         return var_export($args, true);
+    }
+
+    public function get($array, ...$path) {
+        $current = $array;
+        foreach($path as $key) {
+            if(!isset($current[$key])) {
+                return null;
+            }
+            $current = $current[$key];
+        }
+        return $current;
     }
 }
