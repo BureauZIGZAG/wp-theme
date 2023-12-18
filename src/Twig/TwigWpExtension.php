@@ -60,11 +60,11 @@ class TwigWpExtension extends AbstractExtension {
         return \wp_nav_menu(\array_merge($m, $args));
     }
 
-    public function get_thumbnail(int $post_id = null, string $size = 'thumbnail') {
+    public function get_thumbnail(int $post_id = null) {
         if($post_id === null) {
             $post_id = \get_the_ID();
         }
-        return  \get_the_post_thumbnail($post_id, $size);
+        return get_thumbnail($post_id);
     }
 
     public function get_thumbnail_src(int $post_id = null, string $size = 'thumbnail') {
