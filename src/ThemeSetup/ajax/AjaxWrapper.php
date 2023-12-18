@@ -467,5 +467,5 @@ add_action('wp_enqueue_scripts', function () {
     // get url to current theme dir
     $path = __DIR__ . '/ajax-action-wrapper.js';
     $url = abs_path_to_url($path);
-    wp_enqueue_script('ajax-action-wrapper', $url, array('jquery'), '20161105', true);
+    wp_enqueue_script('ajax-action-wrapper', $url, array('jquery'), '', true);
 });
