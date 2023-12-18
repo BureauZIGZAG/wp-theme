@@ -84,8 +84,9 @@ class TwigAcfExtension extends AbstractExtension {
         return get_image($image, $field);
     }
 
-    public function get_link(string $field_name, $post_id = null) {
-        if(!function_exists('get_link_object')) return "";
-        return \get_link_object(\get_field($field_name, $post_id));
+
+    public function get_link(...$args) {
+        if(!function_exists('get_field')) return "";
+        return get_link_object(...$args);
     }
 }
