@@ -23,9 +23,6 @@ class TwigComponentPart extends AbstractExtension {
         if(!$has_extension) {
             $path .= '.twig';
         }
-        if(!file_exists(\get_stylesheet_directory() . '/' . $path)) {
-            throw new \Exception('Template file does not exist: ' . $path);
-        }
         $part = new ComponentPart($path);
         $part->render($data);
     }
