@@ -33,6 +33,8 @@ class TwigWpExtension extends AbstractExtension {
             new \Twig\TwigFunction('wp_post', [$this, 'get_post']),
             // get post_type
             new \Twig\TwigFunction('wp_post_type', [$this, 'get_post_type']),
+            // get id
+            new \Twig\TwigFunction('wp_id', [$this, 'get_id']),
             // get title
             new \Twig\TwigFunction('wp_title', [$this, 'get_title']),
             // get permalink
@@ -156,6 +158,13 @@ class TwigWpExtension extends AbstractExtension {
             $post_id = \get_the_ID();
         }
         return  \get_post_type($post_id);
+    }
+
+    public function get_id(int $post_id = null) {
+        if($post_id === null) {
+            $post_id = \get_the_ID();
+        }
+        return  $post_id;
     }
 
 }
