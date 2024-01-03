@@ -31,6 +31,8 @@ class TwigWpExtension extends AbstractExtension {
             new \Twig\TwigFunction('wp_thumbnail_element', [$this, 'get_thumbnail_element']),
             // get post
             new \Twig\TwigFunction('wp_post', [$this, 'get_post']),
+            // get post_type
+            new \Twig\TwigFunction('wp_post_type', [$this, 'get_post_type']),
             // get title
             new \Twig\TwigFunction('wp_title', [$this, 'get_title']),
             // get permalink
