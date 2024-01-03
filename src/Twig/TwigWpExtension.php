@@ -151,4 +151,11 @@ class TwigWpExtension extends AbstractExtension {
         return do_shortcode($shortcode);
     }
 
+    public function get_post_type(int $post_id = null) {
+        if($post_id === null) {
+            $post_id = \get_the_ID();
+        }
+        return  \get_post_type($post_id);
+    }
+
 }
