@@ -4,13 +4,13 @@ namespace Freekattema\Wp\Shared;
 
 class Link {
     private $attributes = [];
-    private string $content;
+    private string $title;
 
     public function __construct($url, $target, $title)
     {
         $this->set_attribute('href', $url);
         $this->set_attribute('target', $target);
-        $this->content = $title;
+        $this->title = $title;
     }
 
     public function set_attribute($key, $value)
@@ -52,6 +52,8 @@ class Link {
         $attributesString = implode(' ', $attributesStrings);
 
         // return html
-        return "<a $attributesString>$this->content</a>";
+        return "<a $attributesString>$this->title</a>";
     }
+
+
 }
