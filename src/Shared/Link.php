@@ -4,7 +4,7 @@ namespace Freekattema\Wp\Shared;
 
 class Link {
     private $attributes = [];
-    private string $title;
+    public string $title;
 
     public function __construct($url, $target, $title)
     {
