@@ -16,7 +16,7 @@ class Link {
     public function set_attribute($key, $value)
     {
         $blacklist = ['href', 'target'];
-        if(in_array($key, $blacklist) && isset($value)) {
+        if(in_array($key, $blacklist) && isset($this->attributes[$key])) {
             return;
         }
         $this->attributes[$key] = $value;
