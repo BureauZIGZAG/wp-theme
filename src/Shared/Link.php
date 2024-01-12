@@ -61,6 +61,9 @@ class Link {
 
     public function __get($name)
     {
+        if($name === 'url') {
+            return $this->attributes['href'];
+        }
         return isset($this->attributes[$name]) ? $this->attributes[$name] : null;
     }
 
