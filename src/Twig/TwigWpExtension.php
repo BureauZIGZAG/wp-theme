@@ -53,6 +53,8 @@ class TwigWpExtension extends AbstractExtension {
             new \Twig\TwigFunction('wp_site_url', [$this, 'get_site_url']),
             // set wp shortcode
             new \Twig\TwigFunction('wp_shortcode', [$this, 'set_shortcode']),
+            // wp_uuid
+            new \Twig\TwigFunction('wp_uuid', [$this, 'get_uuid']),
             ];
     }
 
@@ -165,6 +167,10 @@ class TwigWpExtension extends AbstractExtension {
             $post_id = \get_the_ID();
         }
         return  $post_id;
+    }
+
+    public function get_uuid() {
+        return \wp_generate_uuid4();
     }
 
 }
