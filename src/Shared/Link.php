@@ -59,5 +59,10 @@ class Link {
         return "<a $attributesString>$this->title</a>";
     }
 
+    public function __get($name)
+    {
+        return isset($this->attributes[$name]) ? $this->attributes[$name] : null;
+    }
+
 
 }
