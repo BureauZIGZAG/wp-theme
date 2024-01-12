@@ -3,26 +3,55 @@
 namespace Freekattema\Wp\Shared;
 
 class Link {
-    public string $url = '';
-    public string $target = '';
-    public string $title = '';
+    private $attributes = [];
+    private string $content;
 
     public function __construct($url, $target, $title)
     {
-        $this->url = $url;
-        $this->target = $target;
-        $this->title = $title;
+        $this->set_attribute('href', $url);
+        $this->set_attribute('target', $target);
+        $this->content = $title;
     }
 
-    public function render(string $classes = ''): void
+    public function set_attribute($key, $value)
     {
-        echo $this->get_html($classes);
+        $blacklist = ['href', 'target'];
+        if(in_array($key, $blacklist) && isset($value)) {
+            return;
+        }
+        $this->attributes[$key] = $value;
+        return $this;
     }
 
-    public function get_html(string $classes = ''): string
+    /**
+     * @param string|array $attributes
+     * @return void
+     */
+    public function render($attributes=[]): void
     {
-        $target = $this->target ? ' target="' . $this->target . '"' : '';
-        $title = $this->title ? ' title="' . $this->title . '"' : '';
-        return '<a href="' . $this->url . '"' . $target . $title . '>' . $this->title . '</a>';
+        // echo the generated html
+        echo $this->get_html($attributes);
+    }
+
+    public function get_html($attributes=[]): string
+    {
+        // parse the attributes
+        if (is_array($attributes)) {
+            foreach ($attributes as $key => $value) {
+                $this->set_attribute($key, $value);
+            }
+        } else {
+            $this->set_attribute('class', $attributes);
+        }
+
+        // build attribute html
+        $attributesStrings = [];
+        foreach ($this->attributes as $key => $value) {
+            $attributesStrings[] = "$key=\"$value\"";
+        }
+        $attributesString = implode(' ', $attributesStrings);
+
+        // return html
+        return "<a $attributesString>$this->content</a>";
     }
 }
