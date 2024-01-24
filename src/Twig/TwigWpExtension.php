@@ -18,7 +18,7 @@ use function Freekattema\Wp\Components\get_the_title;
 class TwigWpExtension extends AbstractExtension {
     public function getFunctions()
     {
-        return [
+        $functions =[
             // get wp menu
             new \Twig\TwigFunction('wp_menu', [$this, 'get_menu'], ['is_safe' => ['html']]),
             // get post thumbnail
@@ -55,7 +55,11 @@ class TwigWpExtension extends AbstractExtension {
             new \Twig\TwigFunction('wp_shortcode', [$this, 'set_shortcode']),
             // wp_uuid
             new \Twig\TwigFunction('wp_uuid', [$this, 'get_uuid']),
-            ];
+        ];
+        foreach(apply_filters('twig_functions', []) as $fn) {
+            $functions[] = new \Twig\TwigFunction($fn[0], $fn[1]);
+        }
+        return $functions;
     }
 
     public function get_menu(string $menu_name, array $args = []) {
