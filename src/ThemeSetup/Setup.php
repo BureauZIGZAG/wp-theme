@@ -1,6 +1,6 @@
 <?php
 
-define('WPTHEMEDIR', get_template_directory() . '/inc/vencdor/wp-theme');
+define('WPTHEMEDIR', get_template_directory_uri() . '/inc/vencdor/wp-theme');
 
 include_once 'ajax/AjaxWrapper.php';
 include_once 'checks.php';
