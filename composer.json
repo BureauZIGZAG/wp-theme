@@ -8,8 +8,7 @@
     "files": [
       "src/ThemeSetup/Setup.php",
       "src/Admin/Docs/InitDocs.php",
-      "src/Buffer/init.php",
-      "src/Wysiwyg/init.php"
+      "src/Buffer/init.php"
     ]
   },
   "authors": [
