@@ -55,6 +55,10 @@ class TwigWpExtension extends AbstractExtension {
             new \Twig\TwigFunction('wp_shortcode', [$this, 'set_shortcode']),
             // wp_uuid
             new \Twig\TwigFunction('wp_uuid', [$this, 'get_uuid']),
+            // wp_header
+            new \Twig\TwigFunction('wp_header', 'get_header'),
+            // wp_footer
+            new \Twig\TwigFunction('wp_footer', 'get_footer'),
         ];
         foreach(apply_filters('twig_functions', []) as $fn) {
             $functions[] = new \Twig\TwigFunction($fn[0], $fn[1]);
