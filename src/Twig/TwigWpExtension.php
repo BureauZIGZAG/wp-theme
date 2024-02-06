@@ -56,9 +56,9 @@ class TwigWpExtension extends AbstractExtension {
             // wp_uuid
             new \Twig\TwigFunction('wp_uuid', [$this, 'get_uuid']),
             // wp_header
-            new \Twig\TwigFunction('wp_header', 'get_header'),
+            new \Twig\TwigFunction('wp_header', [$this, 'get_header']),
             // wp_footer
-            new \Twig\TwigFunction('wp_footer', 'get_footer'),
+            new \Twig\TwigFunction('wp_footer', [$this, 'get_footer']),
         ];
         foreach(apply_filters('twig_functions', []) as $fn) {
             $functions[] = new \Twig\TwigFunction($fn[0], $fn[1]);
@@ -179,6 +179,14 @@ class TwigWpExtension extends AbstractExtension {
 
     public function get_uuid() {
         return \wp_generate_uuid4();
+    }
+
+    public function get_header() {
+        return \get_header();
+    }
+
+    public function get_footer() {
+        return \get_footer();
     }
 
 }
