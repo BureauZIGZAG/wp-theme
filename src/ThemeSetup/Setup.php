@@ -19,3 +19,20 @@ the_post_thumbnail('medium');          // Medium resolution (default 300px x 300
 the_post_thumbnail('large');           // Large resolution (default 640px x 640px max)
 the_post_thumbnail('full');            // Original image resolution (unmodified)
 
+
+function wp_theme_save_acf_json($path)
+{
+    $dir = get_template_directory() . '/inc/acf-json';
+    if (!file_exists($dir)) {
+        mkdir($dir);
+    }
+    return $dir;
+}
+add_filter('acf/settings/save_json', 'wp_theme_save_acf_json');
+
+function wp_theme_load_acf_json($paths)
+{
+    $paths[] = get_template_directory() . '/inc/acf-json';
+    return $paths;
+}
+add_filter('acf/settings/load_json', 'wp_theme_load_acf_json');
