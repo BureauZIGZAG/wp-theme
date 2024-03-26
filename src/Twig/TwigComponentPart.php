@@ -33,8 +33,14 @@ class TwigComponentPart extends AbstractExtension {
         if (!class_exists($component)) {
             throw new \Exception("Component class {$component} does not exist");
         }
-
+        ob_start();
+        try{
         $component::display($data);
+        } catch (\Throwable $e) {
+            ob_end_clean();
+        }
+
+        echo ob_get_clean();
     }
 
     public function dump(...$args) {
