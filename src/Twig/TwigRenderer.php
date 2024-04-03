@@ -15,6 +15,7 @@ final class TwigRenderer {
         $twig->addExtension(new TwigAcfExtension());
         $twig->addExtension(new TwigComponentPart());
         $twig->addExtension(new TwigWpExtension());
+        $twig->addExtension(new TwigUtils());
         return $twig;
     }
 
