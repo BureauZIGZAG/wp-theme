@@ -56,7 +56,16 @@ abstract class Component
         return \current_user_can('administrator');
     }
 
-    abstract function get_template(): string;
+    protected function get_template(): string {
+        $reflector = new \ReflectionClass(static::class);
+        $possible_paths = [ dirname($reflector->getFileName()) . '/' . $reflector->getShortName() . '.twig', dirname($reflector->getFileName()) . '/' . 'template.twig' ];
+        foreach($possible_paths as $path) {
+            if(file_exists($path)) {
+                return $path;
+            }
+        }
+        return '';
+    }
 
     protected function on_init()
     {
