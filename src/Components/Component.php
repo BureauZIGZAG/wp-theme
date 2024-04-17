@@ -38,8 +38,13 @@ abstract class Component
 
         $this->template = $this->get_template();
 
-        if (!$this->before_render()) {
+        $before_render = $this->before_render();
+        if(is_bool($before_render) && !$before_render) {
             return;
+        } else if(is_array($before_render)) {
+            foreach($before_render as $key => $value) {
+                $this->props->set($key, $value);
+            }
         }
 
         if (!file_exists($this->template)) {
@@ -71,7 +76,10 @@ abstract class Component
     {
     }
 
-    protected function before_render(): bool
+    /**
+     * @return bool|array
+     */
+    protected function before_render()
     {
         return true;
     }
