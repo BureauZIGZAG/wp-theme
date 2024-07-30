@@ -2,7 +2,6 @@
 
 define('WPTHEMEDIR', get_template_directory_uri() . '/inc/vencdor/wp-theme');
 
-include_once 'ajax/AjaxWrapper.php';
 include_once 'checks.php';
 include_once 'acf/index.php';
 include_once 'counter.php';
