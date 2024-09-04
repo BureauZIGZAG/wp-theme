@@ -7,7 +7,7 @@ include_once 'acf/index.php';
 include_once 'counter.php';
 include_once 'populate-posts.php';
 
-if (function_exists('acf_add_options_page')) {
+if (function_exists('acf_add_options_page') && !defined('NO_DEFAULT_ACF_OPTIONS')) {
     acf_add_options_page();
 }
 
