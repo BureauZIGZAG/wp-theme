@@ -55,7 +55,7 @@ if(!function_exists('get_sub_image')):
 endif;
 
 if(!function_exists('get_thumbnail')):
-    function get_thumbnail(int $post_ID = null): ?Image
+    function get_thumbnail(?int $post_ID = null): ?Image
     {
         if($post_ID === null) {
             $post_ID === get_the_ID();
